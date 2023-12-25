@@ -1,3 +1,13 @@
-<h1>Список записей</h1>
-<%= @posts.each do |post| %>
+<% content_for :h1 do %>
+Список записей
+<% end %>
+
+<% content_for :title do %>
+Список записей
+<% end %>
+
+<% content_for :image do %><%= '/images/about-bg.jpg' %><% end %>
+
+<% @posts.each do |post| %>
+  <%= render 'post', post: post %>
 <% end %>
