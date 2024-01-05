@@ -17,3 +17,8 @@
 .alert:empty {
   display: none;
 }
+
+.logout {
+  margin-top: 20px;
+  text-align: center;
+}

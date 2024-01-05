@@ -1,0 +1,46 @@
+<% content_for :title do %>
+    Записи пользователя <%= @user.email %>
+<% end %>
+    
+<main role="main" class="container">
+    <div class="row">
+        <% if params[:action] == 'index' %>
+            <div class="col-md-3 mb-3 mt-1">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="h2">
+                        <!-- Email автора -->
+                        <%= @user.email %>
+                        </div>
+                    </div>
+                    
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <a href="<%= url_for(new_post_path) %>" style="text-decoration:underline">Создать пост</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="<%= url_for(edit_user_registration_path) %>" style="text-decoration:underline">Смена пароля</a><br />
+                        </li>
+                        <li class="list-group-item">
+                            <div class="h6 text-muted">
+                                <!-- Количество записей -->
+                                Записей: <%= @posts.count %>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="logout">
+                    <%= button_to "logout", destroy_user_session_path, { method: :delete, class: 'btn btn-danger' } %>
+                </div>
+            </div>
+        <% end %>
+        <div class="col-md-9">
+            <!-- Начало блока с отдельным постом -->
+            <% @posts.each do |post| %>
+                <%= render 'posts/post', post: post %>
+            <% end %>
+            <!-- Остальные посты -->
+            <!-- Здесь будет постраничная навигация паджинатора -->
+        </div>
+    </div>
+</main>
