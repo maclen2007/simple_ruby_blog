@@ -11,5 +11,29 @@
     <a href="<%= url_for(profile_path(id: post.user.id)) %>"><%= post.user.email %></a>
     on <%= post.created_at.strftime('%d-%m-%Y %H:%M') %>
   </p>
+
+  <div class="btn-group">
+    <% if current_user != nil and current_user.id == post.user.id %>
+      <a class="btn btn-sm btn-info" href="<%= url_for(edit_post_path(post)) %>" role="button">Редактировать</a>
+      <a class="btn btn-sm btn-danger" roloe="button" data-toggle="modal" data-target="#post-delete-<%=post.id%>" href="#">Удалить</a>
+    <% end %>
+  </div>
+
 </div>
 <hr>
+
+<% if current_user != nil and current_user.id == post.user.id %>
+  <div id="post-delete-<%= post.id %>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenter">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="card-header">
+          <div class="modal-body text-center">Вы уверены что хотите это удалить?</div>
+          <div class="d-flex justify-content-between align-items-center">
+            <%= button_to "Удалить", post, { method: :delete, class: 'btn btn-danger' } %>
+            <a class="btn btn-secondary" type="button" data-dismiss="modal">Отмена</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

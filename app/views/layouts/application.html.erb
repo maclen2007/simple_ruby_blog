@@ -39,6 +39,20 @@
           <li class="nav-item">
             <a class="nav-link" href="contact.html">Contact</a>
           </li>
+
+          <% if user_signed_in? %>
+            <li class="nav-item">
+              <a class="nav-link" href="<%= url_for(cabinet_path) %>">Личный кабинет</a>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <a class="nav-link"href="<%= url_for(new_user_registration_path) %>">Регистрация</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<%= url_for(new_user_session_path) %>">Авторизация</a>
+            </li>
+          <% end %>
+
         </ul>
       </div>
     </div>

@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
 
   before_action :authenticate_user!, only: [:new]
+  before_action :set_post, only: [:edit, :show, :update, :destroy]
 
   def index
     @posts = Post.all
@@ -16,6 +17,20 @@ class PostsController < ApplicationController
     redirect_to posts_path
   end
 
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post.update(post_params)
+    redirect_to post_path(@post)
+  end
+
+  def destroy
+    @post.destroy
+    redirect_to posts_path
+  end
+
   private
 
   def post_params
@@ -24,6 +39,10 @@ class PostsController < ApplicationController
 
   def authenticate_user
     redirect_to new_user_session_path if current_user.nil?
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
   end
 
 end
