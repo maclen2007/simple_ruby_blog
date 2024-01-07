@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:edit, :show, :update, :destroy]
 
   def index
-    @posts = Post.all
+    @posts = Post.order(created_at: :desc).page params[:page]
   end
 
   def new
@@ -29,6 +29,9 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     redirect_to posts_path
+  end
+
+  def show
   end
 
   private
